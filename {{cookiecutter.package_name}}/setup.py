@@ -3,10 +3,13 @@
 
 import re
 import ast
+from os import path
 from setuptools import setup, find_packages
 
-with open('README.md') as readme_file:
-    readme = readme_file.read()
+here = path.abspath(path.dirname(__file__))
+
+with open(path.join(here, 'README.md'), 'rb') as readme_file:
+    readme = readme_file.read().decode('utf-8')
 
 
 _version_re = re.compile(r'__version__\s+=\s+(.*)')
@@ -17,8 +20,8 @@ with open('{{ cookiecutter.package_name }}/__init__.py', 'rb') as f:
         f.read().decode('utf-8')).group(1)))
 
 
-with open('requirements.txt', encoding='utf-8') as f:
-    all_reqs = f.read().split('\n')
+with open(path.join(here, 'requirements.txt'), 'rb') as f:
+    all_reqs = f.read().decode('utf-8').split('\n')
 
 
 install_requires = [x.strip() for x in all_reqs if 'git+' not in x]
